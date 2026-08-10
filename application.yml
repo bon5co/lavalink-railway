@@ -1,0 +1,75 @@
+server:
+  # Railway injects PORT into every service and its HTTP healthcheck dials that
+  # injected port, not the port a domain targets. So the app must honour $PORT.
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
+lavalink:
+  # No `plugins:` block on purpose. Declaring a plugin here makes Lavalink fetch
+  # the jar from maven.lavalink.dev on every boot; the jar is baked into the
+  # image instead and every jar in plugins/ is loaded automatically.
+  server:
+    password: ${LAVALINK_SERVER_PASSWORD}
+    sources:
+      # The youtube-plugin replaces the (dead) built-in YouTube source.
+      youtube: false
+      bandcamp: true
+      soundcloud: true
+      twitch: true
+      vimeo: true
+      nico: false
+      http: true
+      local: false
+    filters:
+      volume: true
+      equalizer: true
+      karaoke: true
+      timescale: true
+      tremolo: true
+      vibrato: true
+      distortion: true
+      rotation: true
+      channelMix: true
+      lowPass: true
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000
+    opusEncodingQuality: 10
+    resamplingQuality: LOW
+    trackStuckThresholdMs: 10000
+    useSeekGhosting: true
+    youtubePlaylistLoadLimit: 6
+    playerUpdateInterval: 5
+    youtubeSearchEnabled: true
+    soundcloudSearchEnabled: true
+    gc-warnings: true
+
+plugins:
+  youtube:
+    enabled: true
+    # Client order matters: the first client that can resolve a request wins.
+    # MUSIC/WEBEMBEDDED/ANDROID_VR keep working for search and playback when the
+    # plain WEB client is age- or bot-gated.
+    clients:
+      - MUSIC
+      - ANDROID_VR
+      - WEB
+      - WEBEMBEDDED
+
+metrics:
+  prometheus:
+    # /metrics is the one route Lavalink leaves outside its Authorization check,
+    # which is what makes an HTTP healthcheck possible at all.
+    enabled: true
+    endpoint: /metrics
+
+logging:
+  level:
+    root: INFO
+    lavalink: INFO
+  request:
+    enabled: true
+    includeClientInfo: true
+    includeHeaders: false
+    includeQueryString: true
+    includePayload: true
+    maxPayloadLength: 10000
