@@ -46,14 +46,16 @@ lavalink:
 plugins:
   youtube:
     enabled: true
-    # Client order matters: the first client that can resolve a request wins.
-    # MUSIC/WEBEMBEDDED/ANDROID_VR keep working for search and playback when the
-    # plain WEB client is age- or bot-gated.
+
+    oauth:
+      enabled: true
+
     clients:
       - MUSIC
       - ANDROID_VR
       - WEB
       - WEBEMBEDDED
+      - TV
 
 metrics:
   prometheus:
