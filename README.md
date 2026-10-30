@@ -1,5 +1,9 @@
 # lavalink-railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/lavalink-or-just-updated-discord-music-n?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
+**Deploy on Railway:** [Lavalink template](https://railway.com/deploy/lavalink-or-just-updated-discord-music-n?referralCode=Z1xivh&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
 Wrapper image for running [Lavalink](https://lavalink.dev) 4.2.2 as a standalone
 Discord audio node on Railway.
 
